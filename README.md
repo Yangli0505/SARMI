@@ -51,7 +51,7 @@ The proposed framework enables the autonomous vehicle to:
 ## 🏗️ Framework
 
 <p align="center">
-  <img src="assets/framework.png" width="850">
+  <img src="assets/p_framework_01.png" width="850">
 </p>
 
 <p align="center">
@@ -151,7 +151,7 @@ Compared with **MAPPO-Lag**, SARMI achieves approximately:
 These results indicate that predictive risk assessment and the proposed safety-augmentation mechanisms significantly improve the reliability of learning-based autonomous merging.
 
 <p align="center">
-  <img src="assets/results.png" width="800">
+  <img src="assets/p_comparison_01.png" width="800">
 </p>
 
 <p align="center">
