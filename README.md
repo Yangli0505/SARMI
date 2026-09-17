@@ -46,7 +46,6 @@ If you find this work useful, please consider citing our paper.
   volume={13},
   number={13},
   pages={28121-28137},
-  keywords={Safety;Planning;Merging;Decision making;Reinforcement learning;Predictive control;Motion control;Autonomous vehicles;Markov decision processes;Costs;Action masking and shielding;augmented Lagrangian;autonomous on-ramp merging;model predictive control (MPC);reinforcement learning (RL)},
   doi={10.1109/JIOT.2026.3676898}}
 
 
