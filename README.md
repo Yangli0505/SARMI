@@ -58,7 +58,7 @@ The proposed framework enables the autonomous vehicle to:
   <i>Overall architecture of the proposed SARMI framework.</i>
 </p>
 
-> Replace `assets/framework.png` with the actual framework figure from the paper.
+
 
 The SARMI framework consists of four major components:
 
@@ -158,7 +158,7 @@ These results indicate that predictive risk assessment and the proposed safety-a
   <i>Example quantitative comparison of SARMI with baseline methods.</i>
 </p>
 
-> Replace `assets/results.png` with your main result figure, bar chart, or representative comparison from the paper.
+
 
 For complete experimental settings, ablation studies, baseline comparisons, and statistical results, please refer to the published paper.
 
