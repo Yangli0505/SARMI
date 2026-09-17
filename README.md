@@ -36,7 +36,22 @@ More details about the simulation video can be found at:
 ---
 
 ## 📄 Citation
-If you find this work useful, please consider citing our paper (to be updated upon publication).
+If you find this work useful, please consider citing our paper.
+
+@ARTICLE{11454581,
+  author={Li, Yang and Li, Jian and Huang, Wenjie and Yang, Qisong and Qin, Hongmao and Jiang, Xiaolong and Bian, Yougang and Hu, Manjiang and Hu, Yingbai},
+  journal={IEEE Internet of Things Journal}, 
+  title={Risk-Constrained On-Ramp Merging via Safety-Augmented Reinforcement Learning and Model Predictive Control}, 
+  year={2026},
+  volume={13},
+  number={13},
+  pages={28121-28137},
+  keywords={Safety;Planning;Merging;Decision making;Reinforcement learning;Predictive control;Motion control;Autonomous vehicles;Markov decision processes;Costs;Action masking and shielding;augmented Lagrangian;autonomous on-ramp merging;model predictive control (MPC);reinforcement learning (RL)},
+  doi={10.1109/JIOT.2026.3676898}}
+
+
+Li, Yang, Jian Li, Wenjie Huang, Qisong Yang, Hongmao Qin, Xiaolong Jiang, Yougang Bian, Manjiang Hu, and Yingbai Hu. "Risk-Constrained On-Ramp Merging via Safety-Augmented Reinforcement Learning and Model Predictive Control." IEEE Internet of Things Journal (2026).
+
 
 ---
 
