@@ -170,15 +170,6 @@ Simulation demonstrations and visualization results are available at:
 
 👉 **https://github.com/JianLi000/Visualization**
 
-The videos provide qualitative examples of autonomous vehicles performing interactive on-ramp merging under dynamic traffic conditions.
-
-You may also add an animated GIF directly into this README:
-
-```html
-<p align="center">
-  <img src="assets/demo.gif" width="800">
-</p>
-```
 
 ---
 
