@@ -55,9 +55,16 @@ The proposed framework enables the autonomous vehicle to:
 </p>
 
 <p align="center">
-  <i>Overall architecture of the proposed SARMI framework.</i>
+  <i>Fig. Overall architecture of the proposed SARMI framework.</i>
 </p>
 
+<p align="center">
+  <img src="assets/p_alsacd_01.png" width="850">
+</p>
+
+<p align="center">
+  <i>Fig. Safety-Augmented Reinforcement Learning.</i>
+</p>
 
 
 The SARMI framework consists of four major components:
@@ -155,7 +162,7 @@ These results indicate that predictive risk assessment and the proposed safety-a
 </p>
 
 <p align="center">
-  <i>Example quantitative comparison of SARMI with baseline methods.</i>
+  <i>Fig. Comparison of SARMI with baseline methods.</i>
 </p>
 
 
