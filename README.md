@@ -1,11 +1,10 @@
 # SARMI: Safety-Augmented RL and MPC Integration
 
-This repository will contain the official implementation of our paper:
+This repository contains the official implementation of our paper:
 
 **"Risk-Constrained On-Ramp Merging via Safety-Augmented Reinforcement Learning and Model Predictive Control"**
 
-🚧 **Code Release Status:**  
-The code is currently being cleaned and documented, and will be **publicly released in May 2026**.
+
 
 ---
 
@@ -25,15 +24,6 @@ The framework aims to enable **safe, efficient, and interpretable autonomous on-
 More details about the simulation video can be found at:  
 👉 https://github.com/JianLi000/Visualization
 
----
-
-## 🔜 Coming Soon
-- Full source code
-- Training and evaluation scripts
-- Pretrained models
-- Detailed documentation
-
----
 
 ## 📄 Citation
 If you find this work useful, please consider citing our paper.
