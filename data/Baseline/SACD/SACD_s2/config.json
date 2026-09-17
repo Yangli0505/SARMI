@@ -1,0 +1,44 @@
+{
+    "config":	{
+        "Namespace(batch_size=256, buffer_size=100000, cost_limit=0.05, cpu=4, env='merge_game_env-v0', max_ep_len=1000, n_step=1, num_steps=500000.0, per=False, proj_name='Baseline', run_name='SACD', safe_check=False, sample_steps=20000, save_every=20, seed=2, steps_per_epoch=4000, update_freq=1, update_target_freq=10)":	{
+            "batch_size":	256,
+            "buffer_size":	100000,
+            "cost_limit":	0.05,
+            "cpu":	4,
+            "env":	"merge_game_env-v0",
+            "max_ep_len":	1000,
+            "n_step":	1,
+            "num_steps":	500000.0,
+            "per":	false,
+            "proj_name":	"Baseline",
+            "run_name":	"SACD",
+            "safe_check":	false,
+            "sample_steps":	20000,
+            "save_every":	20,
+            "seed":	2,
+            "steps_per_epoch":	4000,
+            "update_freq":	1,
+            "update_target_freq":	10
+        }
+    },
+    "exp_name":	"SACD",
+    "logger":	{
+        "<utils.logx.EpochLogger object at 0x7f058106f880>":	{
+            "epoch_dict":	{},
+            "exp_name":	"SACD",
+            "first_row":	true,
+            "log_current_row":	{},
+            "log_headers":	[],
+            "output_dir":	"data/Baseline/SACD/SACD_s2",
+            "output_file":	{
+                "<_io.TextIOWrapper name='data/Baseline/SACD/SACD_s2/progress.txt' mode='w' encoding='UTF-8'>":	{
+                    "mode":	"w"
+                }
+            }
+        }
+    },
+    "logger_kwargs":	{
+        "exp_name":	"SACD",
+        "output_dir":	"data/Baseline/SACD/SACD_s2"
+    }
+}

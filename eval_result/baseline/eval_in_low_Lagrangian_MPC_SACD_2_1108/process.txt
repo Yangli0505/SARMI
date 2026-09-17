@@ -1,0 +1,3 @@
+Agent	Episode	Crashed	Success	Costs	Length
+Lagrangian_MPC_SACD_2_1108	1	0	1	0.9767274579365467	19
+Lagrangian_MPC_SACD_2_1108	2	0	1	1.434501178324473	24

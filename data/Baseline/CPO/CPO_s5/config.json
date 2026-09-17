@@ -1,0 +1,66 @@
+{
+    "ac_kwargs":	{
+        "hidden_sizes":	[
+            256,
+            256
+        ]
+    },
+    "actor_critic":	"MLPActorCritic",
+    "clip_ratio":	0.2,
+    "config":	{
+        "Namespace(cost_limit=0.1, cpu=2, damping=0.5, env='merge_game_env-v0', gamma=0.99, hid=256, l=2, max_ep_len=4000, num_steps=500000.0, penalty_lr=0.05, proj_name='Baseline', run_name='CPO', safe_check=False, seed=5, steps_per_epoch=4000)":	{
+            "cost_limit":	0.1,
+            "cpu":	2,
+            "damping":	0.5,
+            "env":	"merge_game_env-v0",
+            "gamma":	0.99,
+            "hid":	256,
+            "l":	2,
+            "max_ep_len":	4000,
+            "num_steps":	500000.0,
+            "penalty_lr":	0.05,
+            "proj_name":	"Baseline",
+            "run_name":	"CPO",
+            "safe_check":	false,
+            "seed":	5,
+            "steps_per_epoch":	4000
+        }
+    },
+    "cost_limit":	0.1,
+    "damping":	0.5,
+    "env_fn":	"<function <lambda> at 0x7f6613f73ee0>",
+    "epochs":	125,
+    "exp_name":	"CPO",
+    "gamma":	0.99,
+    "lam":	0.97,
+    "logger":	{
+        "<utils.logx.EpochLogger object at 0x7f6613f72550>":	{
+            "epoch_dict":	{},
+            "exp_name":	"CPO",
+            "first_row":	true,
+            "log_current_row":	{},
+            "log_headers":	[],
+            "output_dir":	"data/Baseline/CPO/CPO_s5",
+            "output_file":	{
+                "<_io.TextIOWrapper name='data/Baseline/CPO/CPO_s5/progress.txt' mode='w' encoding='UTF-8'>":	{
+                    "mode":	"w"
+                }
+            }
+        }
+    },
+    "logger_kwargs":	{
+        "exp_name":	"CPO",
+        "output_dir":	"data/Baseline/CPO/CPO_s5"
+    },
+    "max_ep_len":	4000,
+    "penalty_lr":	0.05,
+    "pi_lr":	0.0001,
+    "re_action":	false,
+    "save_freq":	1,
+    "seed":	5,
+    "steps_per_epoch":	4000,
+    "target_kl":	0.01,
+    "train_pi_iters":	80,
+    "train_v_iters":	80,
+    "vf_lr":	0.0001
+}

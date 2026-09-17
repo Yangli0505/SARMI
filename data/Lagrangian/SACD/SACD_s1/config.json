@@ -1,0 +1,44 @@
+{
+    "config":	{
+        "Namespace(batch_size=256, buffer_size=1000000, cost_limit=0.1, cpu=4, env='merge_game_env-v0', max_ep_len=1000, n_step=1, num_steps=500000.0, per=False, proj_name='Lagrangian', run_name='SACD', safe_check=False, sample_steps=20000, save_every=20, seed=1, steps_per_epoch=4000, update_freq=100, update_target_freq=100)":	{
+            "batch_size":	256,
+            "buffer_size":	1000000,
+            "cost_limit":	0.1,
+            "cpu":	4,
+            "env":	"merge_game_env-v0",
+            "max_ep_len":	1000,
+            "n_step":	1,
+            "num_steps":	500000.0,
+            "per":	false,
+            "proj_name":	"Lagrangian",
+            "run_name":	"SACD",
+            "safe_check":	false,
+            "sample_steps":	20000,
+            "save_every":	20,
+            "seed":	1,
+            "steps_per_epoch":	4000,
+            "update_freq":	100,
+            "update_target_freq":	100
+        }
+    },
+    "exp_name":	"SACD_LAG",
+    "logger":	{
+        "<utils.logx.EpochLogger object at 0x7f7c23fa0c70>":	{
+            "epoch_dict":	{},
+            "exp_name":	"SACD",
+            "first_row":	true,
+            "log_current_row":	{},
+            "log_headers":	[],
+            "output_dir":	"data/Lagrangian/SACD/SACD_s1",
+            "output_file":	{
+                "<_io.TextIOWrapper name='data/Lagrangian/SACD/SACD_s1/progress.txt' mode='w' encoding='UTF-8'>":	{
+                    "mode":	"w"
+                }
+            }
+        }
+    },
+    "logger_kwargs":	{
+        "exp_name":	"SACD",
+        "output_dir":	"data/Lagrangian/SACD/SACD_s1"
+    }
+}

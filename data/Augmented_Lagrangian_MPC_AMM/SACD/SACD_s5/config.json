@@ -1,0 +1,46 @@
+{
+    "config":	{
+        "Namespace(batch_size=256, buffer_size=1000000, cost_limit=0.01, cpu=4, env='merge_game_env-v0', max_ep_len=1000, n_step=3, num_steps=500000.0, per=False, proj_name='Augmented_Lagrangian_MPC_AMM', run_name='SACD', safe_check=True, sample_steps=20000, save_every=20, seed=5, steps_per_epoch=4000, update_freq=100, update_sigma_freq=1000, update_target_freq=100, use_action_masking=False)":	{
+            "batch_size":	256,
+            "buffer_size":	1000000,
+            "cost_limit":	0.01,
+            "cpu":	4,
+            "env":	"merge_game_env-v0",
+            "max_ep_len":	1000,
+            "n_step":	3,
+            "num_steps":	500000.0,
+            "per":	false,
+            "proj_name":	"Augmented_Lagrangian_MPC_AMM",
+            "run_name":	"SACD",
+            "safe_check":	true,
+            "sample_steps":	20000,
+            "save_every":	20,
+            "seed":	5,
+            "steps_per_epoch":	4000,
+            "update_freq":	100,
+            "update_sigma_freq":	1000,
+            "update_target_freq":	100,
+            "use_action_masking":	false
+        }
+    },
+    "exp_name":	"SARMI_AMM",
+    "logger":	{
+        "<utils.logx.EpochLogger object at 0x7facadbc4940>":	{
+            "epoch_dict":	{},
+            "exp_name":	"SACD",
+            "first_row":	true,
+            "log_current_row":	{},
+            "log_headers":	[],
+            "output_dir":	"data/Augmented_Lagrangian_MPC_AMM/SACD/SACD_s5",
+            "output_file":	{
+                "<_io.TextIOWrapper name='data/Augmented_Lagrangian_MPC_AMM/SACD/SACD_s5/progress.txt' mode='w' encoding='UTF-8'>":	{
+                    "mode":	"w"
+                }
+            }
+        }
+    },
+    "logger_kwargs":	{
+        "exp_name":	"SACD",
+        "output_dir":	"data/Augmented_Lagrangian_MPC_AMM/SACD/SACD_s5"
+    }
+}

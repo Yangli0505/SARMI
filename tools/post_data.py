@@ -1,0 +1,322 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+from mpl_toolkits.axes_grid1.inset_locator import mark_inset
+import pandas as pd
+import os
+import argparse
+import json
+
+
+def plot_data(data_set, y_value=None, sub_axis=False, save_name=None):
+    all_data = pd.concat(data_set, axis=0, join='inner', ignore_index=True)
+
+    print(all_data)
+    show_label = False
+    labels = None
+    # labels = ['Dueling DQN','SACD','SACD-$\lambda$', 'SACD-$\lambda$-M', 'SACD-$\lambda$-TM']
+    # labels = ['Dueling DQN','SACD','PPO','SACD-$\lambda$', 'SACD-$\lambda$-M', 'SACD-$\lambda$-TM']
+    # labels = ['Dueling DQN','SACD','SACD-$\lambda$']
+    # labels = ['$\sigma=1$', '$\sigma=5$', '$\sigma=10$']
+    labels = ['$\eta=0.1$', '$\eta=0.05$', '$\eta=0.01$','$\eta=0.001$']
+    label_size = 45 # 45 50
+    ticks_size = 45 # 45 50
+    legend_size = 25 # 30 40
+    line_size = 4
+    titlesize = 45 # 45 50
+    title_order = ['(a)','(b)','(c)']
+    # for crash ratio
+    ylimit = (-0.5, 24)
+    # ylimit = (4.5, 24)
+    ylabel = 'Average Reward'
+    fig = plt.figure()
+    fig.set_size_inches(16*len(y_value), 12)
+    for index, i in enumerate(y_value):
+        print(i)
+        if i == 'AverageEpCost':
+            ylimit = (1.45, 4.7)
+            ylabel = 'Average Cost'
+        elif i == 'Crash_ratio':
+            ylimit = (-0.02, 0.61)
+            # ylimit = (-0.01, 0.41)
+            ylabel = 'Crash Ratio'
+
+        sns.set(style="dark", font='Times New Roman')
+        sns.set_context(rc={"lines.linewidth": line_size})
+        hue_order = None
+        if save_name == 'ppo_sigma':
+            hue_order = ['PPO_mpc_0th', 'PPO_mpc', 'PPO_mpc_10th']
+        elif save_name == 'sacd_tm_sigma':
+            hue_order = ['SAC_SACD-TDn-MPC-0th', 'SAC_nsteps_mpc', 'SAC_SACD-TDn-MPC-10th']
+        elif save_name == 'sacd_m_sigma':
+            hue_order = ['sac_mpc-1th', 'sac_mpc-5th', 'sac_mpc-10th']
+        elif save_name == 'sacd_lambda':
+            hue_order = ['sac_mpc_nstep_0.1', 'sac_mpc_nstep_0.05', 'SAC_nsteps_mpc']
+        elif save_name == 'sacd_lambda_4':
+            hue_order = ['sac_mpc_nstep_0.1', 'sac_mpc_nstep_0.05', 'SAC_nsteps_mpc','sac_mpc_nstep_0.001']
+        elif save_name == 'sacd_compare':
+            hue_order = ['SAC_baseline', 'SAC_mpc', 'SAC_nsteps_mpc']
+        elif save_name == 'original_compare':
+            hue_order = ['DuelingDQN', 'SACD_original', 'SAC_baseline']
+        elif save_name == 'sacd_compare_modified':
+            hue_order = ['DuelingDQN','SACD_original','SAC_baseline', 'SAC_mpc', 'SAC_nsteps_mpc']
+        elif save_name == 'sacd_with_ppo':
+            hue_order = ['DuelingDQN','SACD_original','Baseline_PPO','SAC_baseline', 'SAC_mpc', 'SAC_nsteps_mpc']
+        elif save_name == 'sacd_with_ppo_a':
+            labels = ['Dueling DQN', 'SACD','PPO','SACD-$\lambda$-TM']
+            hue_order = ['DuelingDQN','SACD_original','Baseline_PPO','SAC_nsteps_mpc']
+        elif save_name == 'sacd_with_ppo_b':
+            labels = ['SACD','SACD-$\lambda$','SACD-$\lambda$-M','SACD-$\lambda$-TM']
+            hue_order = ['SACD_original','SAC_baseline', 'SAC_mpc', 'SAC_nsteps_mpc']
+        elif save_name == 'sacd_mpc_ablation_study':
+            labels = ['SACD-$\lambda$-Simple','SACD-$\lambda$-TM']
+            hue_order = ['sac_simple_nstep_0.01','SAC_nsteps_mpc']
+        elif save_name == 'compare':
+            labels = ['Duel-DQN', 'SACD', 'SACD-Lag', 'PPO', 'PPO-Lag', 'TRPO-Lag', 'CPO', 'SARMI']
+            hue_order = ['DuelingDQN', 'SACD', 'SACD_LAG', 'PPO', 'PPO_LAG', 'Lagrangian_TRPO', 'CPO', 'SARMI']
+        elif save_name == 'ablation':
+            labels = ['SARMI', 'SARMI w/o ALM', 'SARMI w/o ALM and AMM', 'SARMI w/o ALM, AMM and ASM']
+            hue_order = ['SARMI', 'SARMI_ALM', 'SARMI_AMM', 'SACD']
+        elif save_name == 'risk':
+            labels = ['SARMI w/   Risk Field', 'SARMI w/o Risk Field']
+            hue_order = ['SARMI', 'RISK']
+        elif save_name == 'TRPO-LAG':
+            labels = ['SARMI w/   Risk Field', 'SARMI w/o Risk Field']
+            hue_order = ['SARMI', 'Lagrangian_TRPO']
+        fig.add_subplot(1, len(y_value), index+1)
+        #1F77B4（蓝色）#FF7F0E（橙色）#2CA02C（绿色）#9467BD（紫色）#8C564B（棕色）#D62728（红色） #17BECF  #E377C2
+        ax = sns.lineplot(data=all_data, x='Epoch', y=i, hue='Exp_name', hue_order=hue_order,
+                           style='Exp_name', style_order=hue_order, legend=False,
+                           palette=['#1F77B4', '#FF7F0E', '#2CA02C', '#9467BD', '#8C564B', '#17BECF', '#E377C2', '#D62728'], 
+                           dashes={'DuelingDQN':(1,0),'SACD':(2,0),'SACD_LAG':(3,0),'PPO':(4,0),'PPO_LAG':(5,0), 'Lagrangian_TRPO':(6,0), 'CPO':(7,0), 'SARMI':(8,0)})
+        # ax = sns.lineplot(data=all_data, x='Epoch', y=i, hue='Exp_name', hue_order=hue_order,
+        #                    style='Exp_name', style_order=hue_order, legend=False,
+        #                    palette=['#1F77B4', '#FF7F0E', '#2CA02C', '#9467BD'], 
+        #                    dashes={'SARMI': (1, 0), 'SARMI_ALM': (2, 0), 'SARMI_AMM': (3, 0), 'SACD': (4, 0)})
+        # ax = sns.lineplot(data=all_data, x='Epoch', y=i, hue='Exp_name', hue_order=hue_order,
+        #                    style='Exp_name', style_order=hue_order, legend=False,
+        #                    palette=['#1F77B4', '#FF7F0E'], 
+        #                    dashes={'SARMI': (1, 0), 'Lagrangian_TRPO': (2, 0)})
+        ax.grid(True)
+        # plt.title(label=title_order[k-1], fontdict={'fontsize': title_size}, loc='left')
+        plt.xlabel('TotalEnvInteracts(Million)', fontsize=label_size, labelpad=20)
+        plt.title(title_order[index], fontsize = titlesize, y=-0.25)
+        # plt.xlabel('TotalEnvInteracts(Million)', fontsize=label_size,labelpad=20)
+        plt.ylabel(ylabel, fontsize=label_size, labelpad=20)
+        plt.xticks(np.linspace(1, 125, 6), ['0', '0.1', '0.2', '0.3', '0.4', '0.5'], fontsize=ticks_size)
+        plt.yticks(fontsize=ticks_size)
+        plt.xlim(-1, 127)
+        plt.ylim(ylimit)
+        if not show_label:
+            # plt.legend(labels=labels, fontsize=legend_size)
+            plt.legend(labels=labels, fontsize=legend_size)
+            # show_label = True
+        
+        # add subaxis
+        if sub_axis:
+            if i == 'AverageEpRet':
+                axins = inset_axes(ax, width="45%", height="35%", loc='lower left',
+                                bbox_to_anchor=(3 / 5, 9 / 17, 0.8, 0.7),
+                                bbox_transform=ax.transAxes)
+                subax = sns.lineplot(data=all_data, x='Epoch', y='AverageEpRet', hue='Exp_name', ax=axins,
+                                    legend=False)
+                subax.axes.yaxis.set_visible(False)
+                subax.axes.xaxis.set_visible(False)
+
+                subax.set_xlim(100, 125)
+                subax.set_ylim(14.5, 15.8)
+
+                mark_inset(ax, axins, loc1=1, loc2=2, fc="none", ec='k', lw=1)
+
+            elif i == 'AverageEpCost':
+                axins = inset_axes(ax, width="45%", height="35%", loc='lower left',
+                                bbox_to_anchor=(3 / 5, 4.5 / 8, 0.8, 0.7),
+                                bbox_transform=ax.transAxes)
+                subax = sns.lineplot(data=all_data, x='Epoch', y='AverageEpCost', hue='Exp_name', ax=axins,
+                                    legend=False)
+                subax.axes.yaxis.set_visible(False)
+                subax.axes.xaxis.set_visible(False)
+
+                subax.set_xlim(100, 125)
+                subax.set_ylim(0, 0.06)
+
+                mark_inset(ax, axins, loc1=3, loc2=4, fc="none", ec='k', lw=1)
+
+            elif i == 'Crash_ratio':
+                axins = inset_axes(ax, width="45%", height="35%", loc='lower left',
+                                bbox_to_anchor=(2.5 / 5, 1.5 / 5, 0.8, 0.7),
+                                bbox_transform=ax.transAxes)
+
+                subax = sns.lineplot(data=all_data, x='Epoch', y='Crash_ratio', hue='Exp_name', ax=axins,
+                                    legend=False)
+                subax.axes.yaxis.set_visible(False)
+                subax.axes.xaxis.set_visible(False)
+
+                subax.set_xlim(100, 125)
+                subax.set_ylim(0, 0.04)
+
+                mark_inset(ax, axins, loc1=3, loc2=4, fc="none", ec='k', lw=1)
+
+    # plt.savefig(os.path.join(save_dir, save_name), dpi=600, format='pdf', bbox_inches='tight')
+
+    # plt.show()
+
+
+def get_data(args):
+    all_data = []
+    for i in args.algo:
+        path = args.file_path + i
+        for root, dirs, files in os.walk(path):
+            if 'progress.txt' in files:
+                data_path = os.path.join(root, 'progress.txt')
+                exp_data = pd.read_table(data_path)
+                # make sure epoch starts from 1
+                if exp_data['Epoch'][0] == 0:
+                    exp_data['Epoch'] += 1
+
+                exp_name = 'NAN'
+
+                try:
+                    config_path = open(os.path.join(root, 'config.json'))
+                    config = json.load(config_path)
+                    exp_name = config['exp_name']
+                except:
+                    print('No file named config.json')
+
+                exp_data.insert(len(exp_data.columns), 'Exp_name', exp_name)
+                all_data.append(exp_data)
+
+    return all_data
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file_path", type=str, default='data/')
+    # 对比实验
+    parser.add_argument("--algo", type=list, default=[
+                                                      'Baseline/DuelingDQN/DuelingDQN_s1',
+                                                      'Baseline/DuelingDQN/DuelingDQN_s2',
+                                                      'Baseline/DuelingDQN/DuelingDQN_s3',
+                                                      'Baseline/DuelingDQN/DuelingDQN_s4',
+                                                      'Baseline/DuelingDQN/DuelingDQN_s5',
+                                                      'Baseline/PPO/PPO_s1',
+                                                      'Baseline/PPO/PPO_s2',
+                                                      'Baseline/PPO/PPO_s3',
+                                                      'Baseline/PPO/PPO_s4',
+                                                      'Baseline/PPO/PPO_s5',
+                                                      'Lagrangian/PPO/Lagrangian_PPO_s1',
+                                                      'Lagrangian/PPO/Lagrangian_PPO_s2',
+                                                      'Lagrangian/PPO/Lagrangian_PPO_s3',
+                                                      'Lagrangian/PPO/Lagrangian_PPO_s4',
+                                                      'Lagrangian/PPO/Lagrangian_PPO_s5',
+                                                      'Baseline/SACD/SACD_s1',
+                                                      'Baseline/SACD/SACD_s2',
+                                                      'Baseline/SACD/SACD_s3',
+                                                      'Baseline/SACD/SACD_s4',
+                                                      'Baseline/SACD/SACD_s5',
+                                                      'Lagrangian/SACD/SACD_s1',
+                                                      'Lagrangian/SACD/SACD_s2',
+                                                      'Lagrangian/SACD/SACD_s3',
+                                                    #   'Lagrangian/SACD/SACD_s4',
+                                                      'Lagrangian/SACD/SACD_s5',
+                                                      'Augmented_Lagrangian_MPC/SACD/SACD_s1',
+                                                      'Augmented_Lagrangian_MPC/SACD/SACD_s2',
+                                                      'Augmented_Lagrangian_MPC/SACD/SACD_s3',
+                                                      'Augmented_Lagrangian_MPC/SACD/SACD_s4',
+                                                      'Augmented_Lagrangian_MPC/SACD/SACD_s5',
+                                                      'Lagrangian_TRPO/Lagrangian_TRPO_s1',
+                                                      'Lagrangian_TRPO/Lagrangian_TRPO_s2',
+                                                      'Lagrangian_TRPO/Lagrangian_TRPO_s3',
+                                                      'Lagrangian_TRPO/Lagrangian_TRPO_s4',
+                                                      'Lagrangian_TRPO/Lagrangian_TRPO_s5',
+                                                      'Baseline/CPO/CPO_s1',
+                                                      'Baseline/CPO/CPO_s2',
+                                                      'Baseline/CPO/CPO_s3',
+                                                      'Baseline/CPO/CPO_s4',
+                                                      'Baseline/CPO/CPO_s5',
+                                                      ])
+    # 消融实验
+    # parser.add_argument("--algo", type=list, default=[
+    #                                                 'Augmented_Lagrangian_MPC/SACD/SACD_s1',
+    #                                                 'Augmented_Lagrangian_MPC/SACD/SACD_s2',
+    #                                                 'Augmented_Lagrangian_MPC/SACD/SACD_s3',
+    #                                                 'Augmented_Lagrangian_MPC/SACD/SACD_s4',
+    #                                                 'Augmented_Lagrangian_MPC/SACD/SACD_s5',
+    #                                                 'Augmented_Lagrangian_MPC_ALM/SACD/SACD_s1',
+    #                                                 'Augmented_Lagrangian_MPC_ALM/SACD/SACD_s2',
+    #                                                 'Augmented_Lagrangian_MPC_ALM/SACD/SACD_s3',
+    #                                                 'Augmented_Lagrangian_MPC_ALM/SACD/SACD_s4',
+    #                                                 'Augmented_Lagrangian_MPC_ALM/SACD/SACD_s5',
+    #                                      parser.add_argument("--save_name", type=str, default='compare')           'Augmented_Lagrangian_MPC_AMM/SACD/SACD_s4',
+    #                                                 'Augmented_Lagrangian_MPC_AMM/SACD/SACD_s5',
+    #                                                 'Augmented_Lagrangian_MPC_ASM/SACD/SACD_s1',
+    #                                                 'Augmented_Lagrangian_MPC_ASM/SACD/SACD_s2',
+    #                                                 'Augmented_Lagrangian_MPC_ASM/SACD/SACD_s3',
+    #                                                 'Augmented_Lagrangian_MPC_ASM/SACD/SACD_s4',
+    #                                                 'Augmented_Lagrangian_MPC_ASM/SACD/SACD_s5',
+    #                                                   ])
+    # parser.add_argument("--algo", type=list, default=[
+    #                                                 'Augmented_Lagrangian_MPC/SACD/SACD_s1',
+    #                                                 'Augmented_Lagrangian_MPC/SACD/SACD_s2',
+    #                                                 'Augmented_Lagrangian_MPC/SACD/SACD_s3',
+    #                                                 'Augmented_Lagrangian_MPC/SACD/SACD_s4',
+    #                                                 'Augmented_Lagrangian_MPC/SACD/SACD_s5',
+    #                                                 'Augmented_Lagrangian_MPC_ALM/SACD/SACD_s1',
+    #                                                 'Augmented_Lagrangian_MPC_ALM/SACD/SACD_s2',
+    #                                                 'Augmented_Lagrangian_MPC_ALM/SACD/SACD_s3',
+    #                                                 'Augmented_Lagrangian_MPC_ALM/SACD/SACD_s4',
+    #                                                 'Augmented_Lagrangian_MPC_ALM/SACD/SACD_s5',
+    #                                                 'Augmented_Lagrangian_MPC_AMM/SACD/SACD_s1',
+    #                                                 'Augmented_Lagrangian_MPC_AMM/SACD/SACD_s2',
+    #                                                 'Augmented_Lagrangian_MPC_AMM/SACD/SACD_s3',
+    #                                                 'Augmented_Lagrangian_MPC_AMM/SACD/SACD_s4',
+    #                                                 'Augmented_Lagrangian_MPC_AMM/SACD/SACD_s5',
+    #                                                 'Baseline/SACD/SACD_s1',
+    #                                                 'Baseline/SACD/SACD_s2',
+    #                                                 'Baseline/SACD/SACD_s3',
+    #                                                 'Baseline/SACD/SACD_s4',
+    #                                                 'Baseline/SACD/SACD_s5',
+    #                                                   ])
+    # 去掉风险场
+    # parser.add_argument("--algo", type=list, default=[
+    #     'RISK_FIELD/SACD/SACD_s1',
+    #     'RISK_FIELD/SACD/SACD_s2',
+    #     'RISK_FIELD/SACD/SACD_s3',
+    #     'RISK_FIELD/SACD/SACD_s4',
+    #     'RISK_FIELD/SACD/SACD_s5',
+    #     # 'Augmented_Lagrangian_MPC/SACD/SACD_s1',
+    #     # 'Augmented_Lagrangian_MPC/SACD/SACD_s2',
+    #     # 'Augmented_Lagrangian_MPC/SACD/SACD_s3',
+    #     # 'Augmented_Lagrangian_MPC/SACD/SACD_s4',
+    #     # 'Augmented_Lagrangian_MPC/SACD/SACD_s5',
+    #     'Lagrangian_TRPO/Lagrangian_TRPO_s3',
+    #     'Lagrangian_TRPO/Lagrangian_TRPO_s3',
+    #     'Lagrangian_TRPO/Lagrangian_TRPO_s3',
+    #     'Lagrangian_TRPO/Lagrangian_TRPO_s3',
+    #     'Lagrangian_TRPO/Lagrangian_TRPO_s3',
+    # ])
+    parser.add_argument("--y_value", type=list, default=[
+                                                         'AverageEpRet',
+                                                         'AverageEpCost',
+                                                         'Crash_ratio',
+                                                         ])
+    # parser.add_argument("--y_value", type=list, default=['Crash_ratio','AverageEpRet'])
+    parser.add_argument('--add_subaxis', type=bool, default=False)
+    # parser.add_argument("--save_name", type=str, default='ablation')
+    parser.add_argument("--save_name", type=str, default='compare')
+    # parser.add_argument("--save_name", type=str, default='TRPO-LAG')
+    args = parser.parse_args()
+
+    data_set = get_data(args)
+
+    plot_data(data_set,
+            y_value=args.y_value,
+            sub_axis=args.add_subaxis,
+            save_name=args.save_name)
+    save_dir = './pictures/'
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+    save_name = args.save_name
+    plt.savefig(os.path.join(save_dir, save_name), dpi=600, format='pdf', bbox_inches='tight')  # 保存为PDF
+
+    plt.show()

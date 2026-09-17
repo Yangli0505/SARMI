@@ -1,0 +1,62 @@
+{
+    "ac_kwargs":	{
+        "hidden_sizes":	[
+            256,
+            256
+        ]
+    },
+    "actor_critic":	"MLPActorCritic",
+    "clip_ratio":	0.2,
+    "config":	{
+        "Namespace(cost_limit=0.01, cpu=2, env='merge_game_env-v0', gamma=0.99, hid=256, l=2, max_ep_len=4000, num_steps=500000.0, proj_name='Baseline', run_name='PPO', safe_check=False, seed=1, steps_per_epoch=4000)":	{
+            "cost_limit":	0.01,
+            "cpu":	2,
+            "env":	"merge_game_env-v0",
+            "gamma":	0.99,
+            "hid":	256,
+            "l":	2,
+            "max_ep_len":	4000,
+            "num_steps":	500000.0,
+            "proj_name":	"Baseline",
+            "run_name":	"PPO",
+            "safe_check":	false,
+            "seed":	1,
+            "steps_per_epoch":	4000
+        }
+    },
+    "cost_limit":	0.01,
+    "env_fn":	"<function <lambda> at 0x7f2db867bf70>",
+    "epochs":	125,
+    "exp_name":	"PPO",
+    "gamma":	0.99,
+    "lam":	0.97,
+    "logger":	{
+        "<utils.logx.EpochLogger object at 0x7f2db8681b80>":	{
+            "epoch_dict":	{},
+            "exp_name":	"PPO",
+            "first_row":	true,
+            "log_current_row":	{},
+            "log_headers":	[],
+            "output_dir":	"data/Baseline/PPO/PPO_s1",
+            "output_file":	{
+                "<_io.TextIOWrapper name='data/Baseline/PPO/PPO_s1/progress.txt' mode='w' encoding='UTF-8'>":	{
+                    "mode":	"w"
+                }
+            }
+        }
+    },
+    "logger_kwargs":	{
+        "exp_name":	"PPO",
+        "output_dir":	"data/Baseline/PPO/PPO_s1"
+    },
+    "max_ep_len":	4000,
+    "pi_lr":	0.0001,
+    "re_action":	false,
+    "save_freq":	1,
+    "seed":	1,
+    "steps_per_epoch":	4000,
+    "target_kl":	0.01,
+    "train_pi_iters":	80,
+    "train_v_iters":	80,
+    "vf_lr":	0.0001
+}
